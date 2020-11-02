@@ -1,0 +1,157 @@
+﻿@{
+    var menuLevel1 = new List<Model.ModelExtend.MenuModel>();
+    var menuLevel2 = new List<Model.ModelExtend.MenuModel>();
+    var menuLevel3 = new List<Model.ModelExtend.MenuModel>();
+    var menus = Session["Menus"] as List<Model.ModelExtend.MenuModel>;
+    var userSession = (Simple.Base.UserLogin)HttpContext.Current.Session["USER_SESSION"];
+    if (menus != null && menus.Count > 0)
+    {
+        menuLevel1 = menus.Where(x => x.PARENT_PAGE_ID == null || x.PARENT_PAGE_ID == 0).OrderBy(x => x.ORDER_BY).ToList();
+
+        if (menuLevel1 != null && menuLevel1.Count > 0)
+        {
+            for (int i = 0; i < menuLevel1.Count; i++)
+            {
+                var listChild = menus.Where(x => x.PARENT_PAGE_ID == menuLevel1[i].ID).ToList();
+                menuLevel1[i].CountChild = listChild != null ? listChild.Count : 0;
+            }
+            var menuLevel1IDs = menuLevel1.Select(x => x.ID).ToList();
+            menuLevel2 = menus.Where(x => menuLevel1IDs.Contains((int)x.PARENT_PAGE_ID)).OrderBy(x => x.ORDER_BY).ToList();
+            if (menuLevel2 != null && menuLevel2.Count > 0)
+            {
+                for (int i = 0; i < menuLevel2.Count; i++)
+                {
+                    var listChild2 = menus.Where(x => x.PARENT_PAGE_ID == menuLevel2[i].ID).ToList();
+                    menuLevel2[i].CountChild = listChild2 != null ? listChild2.Count : 0;
+                }
+                var menuLevel2IDs = menuLevel2.Select(x => x.ID).ToList();
+                menuLevel3 = menus.Where(x => menuLevel2IDs.Contains((int)x.PARENT_PAGE_ID)).OrderBy(x => x.ORDER_BY).ToList();
+                if (menuLevel3 != null && menuLevel3.Count > 0)
+                {
+                    for (int i = 0; i < menuLevel3.Count; i++)
+                    {
+                        var listChild3 = menus.Where(x => x.PARENT_PAGE_ID == menuLevel3[i].ID).ToList();
+                        menuLevel3[i].CountChild = listChild3 != null ? listChild3.Count : 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link">
+        <img src="~/Assest/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">AdminLTE 3</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        @*@if (userSession != null)
+        {
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="@userSession.Avartar" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">@userSession.Name</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="~/Assest/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Demo</a>
+                </div>
+            </div>
+        }*@
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                @if (menuLevel1.Any())
+                {
+                    int i = 0;
+                    foreach (var menu1 in menuLevel1)
+                    {
+                        i++;
+                        <li class="nav-item" id="nav-item-@i">
+
+                            @if (menu1.CountChild > 0)
+                            {
+                                <a href="#" class="nav-link" onclick="SetActiveMenu(this)">
+                                    <i class="nav-icon fas fa-copy"></i>
+                                    <p>
+                                        @menu1.NAME
+                                        <i class="fas fa-angle-left right"></i>
+                                        <span class="badge badge-info right">@menuLevel2.Where(x => x.PARENT_PAGE_ID == menu1.ID).Count()</span>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @{var listMenu2 = menuLevel2.Where(x => x.PARENT_PAGE_ID == menu1.ID).ToList();
+                                        if (listMenu2.Any())
+                                        {
+                                            foreach (var menu2 in listMenu2)
+                                            {
+                                                <li class="nav-item">
+                                                    @if (menu2.CountChild > 0)
+                                                    {
+                                                        <a href="pages/layout/top-nav.html" class="nav-link">
+                                                            <i class="far fa-circle nav-icon"></i>
+                                                            <p>Top Navigation</p>
+                                                        </a>
+                                                        @*<ul class="sidebar-section-subnav">
+                                                            @{
+                                                                var listMenu3 = menuLevel3.Where(x => x.PARENT_PAGE_ID == menu2.ID).ToList();
+                                                                if (listMenu3.Any())
+                                                                {
+                                                                    foreach (var menu3 in listMenu3)
+                                                                    {
+                                                                        <li class="sidebar-section-subnav__item">
+                                                                            <a class="sidebar-section-subnav__link" href="@menu3.HREF_URL">@menu3.NAME</a>
+                                                                        </li>
+                                                                    }
+                                                                }
+                                                            }
+                                                        </ul>*@
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@menu2.HREF_URL" class="nav-link">
+                                                            <i class="nav-icon far fa-image"></i>
+                                                            <p>
+                                                                @menu2.NAME
+                                                            </p>
+                                                        </a>
+                                                    }
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <a href="@menu1.HREF_URL" class="nav-link">
+                                    <i class="nav-icon far fa-image"></i>
+                                    <p>
+                                        @menu1.NAME
+                                    </p>
+                                </a>
+                            }
+                        </li>
+                    }
+                }
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

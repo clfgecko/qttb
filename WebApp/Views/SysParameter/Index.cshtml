@@ -1,0 +1,59 @@
+﻿@{
+//ViewBag.Title = "Tham số";
+}
+<div class="row" ng-controller="SysParameterController">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Tham số</h3>
+                <div class="card-tools" ng-show="RoleBtnSearch == true" >
+                    @*<button type="button" class="btn btn-primary"ng-click="add()">
+                        <i class="fas fa-plus"></i> Thêm mới
+                    </button>*@
+                    <button type="button" class="btn btn-primary"ng-click="Refesh()">
+                        <i class="fas fa-sync-alt"></i> Làm mới
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:5%;">STT </th>
+                            <th style="width:10%;" class="sort sorting" ng-click="Sort($event, 'ParamCode')">Mã </th>
+                            <th style="width:10%;" class="sort sorting" ng-click="Sort($event, 'ParamValue')">Giá trị </th>
+                            <th style="width:10%;" class="sort sorting" ng-click="Sort($event, 'ParamValueType')">Kiểu dữ liệu </th>
+                            <th style="width:auto;" class="sort sorting" ng-click="Sort($event, 'Desctiption')">Mô tả </th>
+                            <th style="width:9%;" class="sort sorting" ng-click="Sort($event, 'IsActive')">Trạng thái</th>
+                            <th style="width:7%;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in ListSysParameter" ng-click="ViewDetail(item.ID, $index)" ng-class="{activerow:$index==selectedRow}">
+                            <td class="text-center">{{$index + 1}}</td>
+                            <td class="text-left">{{item.ParamCode}}</td>
+                            <td class="text-left">{{item.ParamValue}}</td>
+                            <td class="text-left">{{item.ParamValueType == 'STRING' ? 'Kiểu chữ' : 'Kiểu số'}}</td>
+                            <td class="text-left">{{item.Desctiption}}</td>
+                            <td class="text-center">{{item.IsActive == true ? 'Sử dụng' : 'Không sử dụng'}}</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="edit(item.ID)" ng-show="RoleBtnUpdate == true" title="Cập nhật">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="pagination pagination-sm m-0 float-right" uib-pagination total-items="modelSearch.totalItems" items-per-page="modelSearch.pageSize" ng-model="modelSearch.currentPage" ng-change="pageChanged()" max-size="modelSearch.maxSize" class="pagination-sm" boundary-links="true" rotate="false" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/app/Controller/SysparameterController.js"></script>
+}

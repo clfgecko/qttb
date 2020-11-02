@@ -1,0 +1,6 @@
+D:\Work\WebApp\WebApp\Simple\obj\Debug\Simple.csprojAssemblyReference.cache
+D:\Work\WebApp\WebApp\Simple\obj\Debug\Simple.csproj.CoreCompileInputs.cache
+D:\Work\WebApp\WebApp\Simple\bin\Debug\Simple.dll
+D:\Work\WebApp\WebApp\Simple\bin\Debug\Simple.pdb
+D:\Work\WebApp\WebApp\Simple\obj\Debug\Simple.dll
+D:\Work\WebApp\WebApp\Simple\obj\Debug\Simple.pdb

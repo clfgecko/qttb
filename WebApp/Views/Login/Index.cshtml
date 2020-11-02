@@ -1,0 +1,72 @@
+﻿@model Simple.Base.LoginModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="~/Assest/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/Assest/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="~/Assest/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href=".#" class="h1"><b>ĐĂNG NHẬP</b></a>
+            </div>
+            <div class="card-body" style="padding-bottom: 50px;">
+                <div class="text-center">
+                    <img style="border-radius: 50%" src="~/Assest/dist/img/AdminLTELogo.png"/>
+                </div>
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "login100-form validate-form" }))
+                {
+                    @Html.ValidationSummary(false, "", "error")
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Tên đăng nhập" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Mật  khẩu" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            @*<div class="icheck-primary">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">
+                            Remember Me
+                        </label>
+                    </div>*@
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                }
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
+    <script src="~/Assest/plugins/jquery/jquery.min.js"></script>
+    <script src="~/Assest/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Assest/dist/js/adminlte.min.js"></script>
+</body>
+</html>

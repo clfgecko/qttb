@@ -1,0 +1,62 @@
+﻿@{
+    //ViewBag.Title = "Nhóm quyền";
+}
+<div class="row" ng-controller="RoleController">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Nhóm quyền</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-primary" ng-show="RoleBtnCreate == true" ng-click="add()">
+                        <i class="fas fa-plus"></i> Thêm mới
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="RoleBtnSearch == true" ng-click="Refesh()">
+                        <i class="fas fa-sync-alt"></i> Làm mới
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:10px;">STT </th>
+                            <th style="width:100px;" class="sort sorting" ng-click="Sort($event, 'ID')">Mã </th>
+                            <th style="width:100px;" class="sort sorting" ng-click="Sort($event, 'Name')">Tên quyền </th>
+                            <th style="width:100px;" class="sort sorting" ng-click="Sort($event, 'Descripttion')">Mô tả </th>
+                            <th style="width:70px;" class="sort sorting" ng-click="Sort($event, 'IsActive')">Trạng thái</th>
+                            <th style="width:70px;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in ListRole" ng-click="ViewDetail(item.ID, $index)" ng-class="{activerow:$index==selectedRow}">
+                            <td class="text-center">{{$index + 1}}</td>
+                            <td>{{item.ID}}</td>
+                            <td>{{item.Name}}</td>
+                            <td>{{item.Descripttion}}</td>
+                            <td class="text-center">{{item.IsActive == true ? 'Sử dụng' : 'Không sử dụng'}}</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="edit(item.ID)" ng-show="RoleBtnUpdate == true" title="Cập nhật">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger" ng-click="delete(item.ID, item.Name)" ng-show="RoleBtnDelete == true" title="Xóa">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="pagination pagination-sm m-0 float-right" uib-pagination total-items="modelSearch.totalItems" items-per-page="modelSearch.pageSize" ng-model="modelSearch.currentPage" ng-change="pageChanged()" max-size="modelSearch.maxSize" class="pagination-sm" boundary-links="true" rotate="false" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/app/Controller/RoleController.js"></script>
+    <script src="~/Content/js/jquery.ztree.core.js"></script>
+    <script src="~/Content/js/jquery.ztree.excheck.js"></script>
+}

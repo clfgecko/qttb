@@ -1,0 +1,14 @@
+D:\Work\WebApp\WebApp\Model\bin\Debug\Model.dll.config
+D:\Work\WebApp\WebApp\Model\bin\Debug\Model.dll
+D:\Work\WebApp\WebApp\Model\bin\Debug\Model.pdb
+D:\Work\WebApp\WebApp\Model\bin\Debug\EntityFramework.dll
+D:\Work\WebApp\WebApp\Model\bin\Debug\EntityFramework.SqlServer.dll
+D:\Work\WebApp\WebApp\Model\bin\Debug\Simple.dll
+D:\Work\WebApp\WebApp\Model\bin\Debug\Simple.pdb
+D:\Work\WebApp\WebApp\Model\bin\Debug\EntityFramework.xml
+D:\Work\WebApp\WebApp\Model\bin\Debug\EntityFramework.SqlServer.xml
+D:\Work\WebApp\WebApp\Model\obj\Debug\Model.csprojAssemblyReference.cache
+D:\Work\WebApp\WebApp\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+D:\Work\WebApp\WebApp\Model\obj\Debug\Model.csproj.CopyComplete
+D:\Work\WebApp\WebApp\Model\obj\Debug\Model.dll
+D:\Work\WebApp\WebApp\Model\obj\Debug\Model.pdb
