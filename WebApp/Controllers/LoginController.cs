@@ -65,24 +65,25 @@ namespace WebApp.Controllers
                     Session.Add("Menus", menus);
                     Session.Add("USER_SESSION", userSession);
                     AddLog("Đăng nhập( UserName: " + user.UserName + ") thành công.");
-                    if (userSession.ViewHome)
-                        return RedirectToAction("Index", "Home");
-                    else
-                    {
-                        var action = "";
-                        var controller = "";
-                        var url = menus.Where(x => !string.IsNullOrEmpty(x.HREF_URL)).FirstOrDefault().HREF_URL;
-                        if (!string.IsNullOrEmpty(url))
-                        {
-                            var xauChar = url.Split('/').Where(x => !string.IsNullOrEmpty(x)).ToList();
-                            if (xauChar != null)
-                            {
-                                action = xauChar[1];
-                                controller = xauChar[0];
-                            }
-                        }
-                        return RedirectToAction(action, controller);
-                    }
+                    //if (userSession.ViewHome)
+                    //    return RedirectToAction("Index", "Home");
+                    //else
+                    //{
+                    //    var action = "";
+                    //    var controller = "";
+                    //    var url = menus.Where(x => !string.IsNullOrEmpty(x.HREF_URL)).FirstOrDefault().HREF_URL;
+                    //    if (!string.IsNullOrEmpty(url))
+                    //    {
+                    //        var xauChar = url.Split('/').Where(x => !string.IsNullOrEmpty(x)).ToList();
+                    //        if (xauChar != null)
+                    //        {
+                    //            action = xauChar[1];
+                    //            controller = xauChar[0];
+                    //        }
+                    //    }
+                    //    return RedirectToAction(action, controller);
+                    //}
+                    return RedirectToAction("Index", "Home");
                 }
                 else if (result == 0)
                 {
